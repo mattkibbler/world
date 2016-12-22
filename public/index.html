@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>World</title>
+</head>
+<body>
+	<p>Frame: <span id="frame-count"></span></p>
+	<script src="/static/js/socket.io.js"></script>
+	<script>
+
+		var socket = io();//io.connect( "http://localhost:8080");
+		var elem = {
+			frameCount: document.getElementById("frame-count")
+		};
+		socket.on('frame', function (data) {
+			//console.log(data);
+			elem.frameCount.innerHTML = data;
+		});
+		socket.on('welcome', function (data) {
+			console.log(data);
+		});
+	</script>
+</body>
+</html>
