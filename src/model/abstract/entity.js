@@ -83,8 +83,20 @@ class Entity {
 			}
 		};
 	}
-	tick() {}
+	tick() {
+		return new Promise((resolve, reject) => {resolve();});
+	}
 	add() {
+
+	}
+	update(changes){
+
+		_.merge(this.record, changes);
+		return new Promise((resolve, reject) => {
+			dataStore.update(this.record.id, this.record).then(() => {
+				resolve(changes);
+			});
+		});
 
 	}
 	static getById(id) {

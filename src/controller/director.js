@@ -20,7 +20,17 @@ class Director extends Controller {
 		}, 1000 / 30);
 	}
 	direct(obj) {
-		obj.tick();
+		obj.tick().then((result) => {
+			if(result) {
+				this.io.sockets.emit('update', {
+					className: obj.className,
+					id: obj.record.id,
+					changes: result
+				});
+			}
+		}).catch((error) => {
+			console.log(error);
+		});
 		_.each(obj.children, (child) => {
 			this.direct(child);
 		});

@@ -27,8 +27,25 @@ var dataStore = {
 					data: JSON.parse(result.data)
 				});
 			});
-		});
-		
+		});		
+	},
+	update(id, values) {
+		return new Promise((resolve, reject) => {
+			db.query({
+				sql: "UPDATE entities SET data = ? WHERE id = ?",
+				values: [
+					JSON.stringify(values),
+					id
+				]
+			}, (error, results) => {
+				if(error) {
+					throw new Error("Could not updated due to database error: " + error);
+				}
+				else {
+					resolve();
+				}
+			});
+		});		
 	}
 };
 
